@@ -2,6 +2,8 @@ package com.loganalyzer.elasticsearch.controller;
 
 import com.loganalyzer.elasticsearch.bean.Log;
 import com.loganalyzer.elasticsearch.dao.LogDao;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.profile.ProfileShardResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +26,7 @@ public class LogController {
     }
 
     @GetMapping
-    public Map<String, Object> getAllTypes(){
+    public SearchHit[] getAllTypes(){
         return logDao.getAllTypes();
     }
 
