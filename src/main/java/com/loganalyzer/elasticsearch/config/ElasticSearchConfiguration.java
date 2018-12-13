@@ -5,9 +5,14 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.AbstractFactoryBean;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Configuration
 public class ElasticSearchConfiguration extends AbstractFactoryBean<RestHighLevelClient> {
@@ -18,6 +23,33 @@ public class ElasticSearchConfiguration extends AbstractFactoryBean<RestHighLeve
     @Value("${spring.data.elasticsearch.cluster-name}")
     private String clusterName;
     private RestHighLevelClient restHighLevelClient;
+
+    @Autowired
+    ApplicationArguments appArgs;
+
+    private String logsPath;
+
+    @Value("${formatPattern}")
+    private String formatPattern;
+
+    @Value("${formatPatternNoLocation}")
+    private String formatPatternNoLocation;
+
+    @Value("${timestamp}")
+    private String timestamp;
+
+    @Value("#{'${filesWithFormatPattern}'.split(',')}")
+    private List<String> filesWithFormatPattern;
+
+    @Value("#{'${filesWithFormatPatternNoLocation}'.split(',')}")
+    private List<String> filesWithFormatPatternNoLocation;
+
+    @PostConstruct
+    public void initialize(){
+
+        System.out.println("printing!");
+
+    }
 
     @Override
     public void destroy() {
