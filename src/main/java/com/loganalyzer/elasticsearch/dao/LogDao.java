@@ -2,7 +2,7 @@ package com.loganalyzer.elasticsearch.dao;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.loganalyzer.elasticsearch.bean.Book;
+import com.loganalyzer.elasticsearch.bean.Log;
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -21,24 +21,24 @@ import java.util.Map;
 import java.util.UUID;
 
 @Repository
-public class BookDao {
+public class LogDao {
 
-    private final String INDEX = "bookdata";
-    private final String TYPE = "books";
+    private final String INDEX = "logdata";
+    private final String TYPE = "logs";
 
     private RestHighLevelClient restHighLevelClient;
 
     private ObjectMapper objectMapper;
 
-    public BookDao( ObjectMapper objectMapper, RestHighLevelClient restHighLevelClient) {
+    public LogDao( ObjectMapper objectMapper, RestHighLevelClient restHighLevelClient) {
         this.objectMapper = objectMapper;
         this.restHighLevelClient = restHighLevelClient;
     }
 
-    public Book insertBook(Book book){
-        book.setId(UUID.randomUUID().toString());
-        Map<String, Object> dataMap = objectMapper.convertValue(book, Map.class);
-        IndexRequest indexRequest = new IndexRequest(INDEX, TYPE, book.getId())
+    public Log insertLog(Log log){
+        log.setId(UUID.randomUUID().toString());
+        Map<String, Object> dataMap = objectMapper.convertValue(log, Map.class);
+        IndexRequest indexRequest = new IndexRequest(INDEX, TYPE, log.getId())
                 .source(dataMap);
         try {
             IndexResponse response = restHighLevelClient.index(indexRequest);
@@ -47,7 +47,7 @@ public class BookDao {
         } catch (java.io.IOException ex){
             ex.getLocalizedMessage();
         }
-        return book;
+        return log;
     }
 
     public Map<String, Object> getAllTypes(){
@@ -62,7 +62,7 @@ public class BookDao {
         return sourceAsMap;
     }
 
-    public Map<String, Object> getBookById(String id){
+    public Map<String, Object> getLogById(String id){
         GetRequest getRequest = new GetRequest(INDEX, TYPE, id);
         GetResponse getResponse = null;
         try {
@@ -74,13 +74,13 @@ public class BookDao {
         return sourceAsMap;
     }
 
-    public Map<String, Object> updateBookById(String id, Book book){
+    public Map<String, Object> updateLogById(String id, Log log){
         UpdateRequest updateRequest = new UpdateRequest(INDEX, TYPE, id)
                 .fetchSource(true);    // Fetch Object after its update
         Map<String, Object> error = new HashMap<>();
         error.put("Error", "Unable to update book");
         try {
-            String bookJson = objectMapper.writeValueAsString(book);
+            String bookJson = objectMapper.writeValueAsString(log);
             updateRequest.doc(bookJson, XContentType.JSON);
             UpdateResponse updateResponse = restHighLevelClient.update(updateRequest);
             Map<String, Object> sourceAsMap = updateResponse.getGetResult().sourceAsMap();
@@ -93,7 +93,7 @@ public class BookDao {
         return error;
     }
 
-    public void deleteBookById(String id) {
+    public void deleteLogById(String id) {
         DeleteRequest deleteRequest = new DeleteRequest(INDEX, TYPE, id);
         try {
             DeleteResponse deleteResponse = restHighLevelClient.delete(deleteRequest);

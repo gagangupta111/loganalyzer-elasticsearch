@@ -1,7 +1,7 @@
 package com.loganalyzer.elasticsearch.controller;
 
-import com.loganalyzer.elasticsearch.bean.Book;
-import com.loganalyzer.elasticsearch.dao.BookDao;
+import com.loganalyzer.elasticsearch.bean.Log;
+import com.loganalyzer.elasticsearch.dao.LogDao;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,37 +14,37 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/books")
-public class BookController {
+@RequestMapping("/logs")
+public class LogController {
 
-    private BookDao bookDao;
+    private LogDao logDao;
 
-    public BookController(BookDao bookDao) {
-        this.bookDao = bookDao;
+    public LogController(LogDao logDao) {
+        this.logDao = logDao;
     }
 
     @GetMapping
     public Map<String, Object> getAllTypes(){
-        return bookDao.getAllTypes();
+        return logDao.getAllTypes();
     }
 
     @PostMapping
-    public Book insertBook(@RequestBody Book book) throws Exception{
-        return bookDao.insertBook(book);
+    public Log insertLog(@RequestBody Log log) throws Exception{
+        return logDao.insertLog(log);
     }
 
     @GetMapping("/{id}")
-    public Map<String, Object> getBookById(@PathVariable String id){
-        return bookDao.getBookById(id);
+    public Map<String, Object> getLogById(@PathVariable String id){
+        return logDao.getLogById(id);
     }
 
     @PutMapping("/{id}")
-    public Map<String, Object> updateBookById(@RequestBody Book book, @PathVariable String id){
-        return bookDao.updateBookById(id, book);
+    public Map<String, Object> updateLogById(@RequestBody Log log, @PathVariable String id){
+        return logDao.updateLogById(id, log);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBookById(@PathVariable String id){
-         bookDao.deleteBookById(id);
+    public void deleteLogById(@PathVariable String id){
+        logDao.deleteLogById(id);
     }
 }
