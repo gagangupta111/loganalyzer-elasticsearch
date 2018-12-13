@@ -1,6 +1,7 @@
 package com.loganalyzer.elasticsearch.receiver;
 
 import com.loganalyzer.elasticsearch.bean.Log;
+import com.loganalyzer.elasticsearch.dao.LogDao;
 import com.loganalyzer.elasticsearch.util.Utility;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -10,6 +11,8 @@ import org.apache.log4j.spi.LocationInfo;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.ThrowableInformation;
 import org.apache.log4j.varia.LogFilePatternReceiver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -91,7 +94,9 @@ public class LogEventsGenerator extends LogFilePatternReceiver {
 
     private String mapKey;
 
-    public LogEventsGenerator() {
+    private LogDao logDao;
+
+    public LogEventsGenerator(LogDao logDao) {
         this.keywords.add("TIMESTAMP");
         this.keywords.add("LOGGER");
         this.keywords.add("LEVEL");
@@ -103,6 +108,7 @@ public class LogEventsGenerator extends LogFilePatternReceiver {
         this.keywords.add("MESSAGE");
         this.keywords.add("NDC");
 
+        this.logDao = logDao;
         try {
             this.exceptionPattern = Pattern.compile("^\\s+at.*");
         } catch (PatternSyntaxException var2) {
@@ -739,9 +745,7 @@ public class LogEventsGenerator extends LogFilePatternReceiver {
         log.setLogFile(Utility.shortFileName(Utility.getFileName(event.getMDC("application").toString())));
         log.setMessage(event.getMessage().toString().trim());
 
-
-
-        System.out.println(log);
+        logDao.insertLog(log);
         System.out.println("=======================================================================================");
     }
 }

@@ -37,6 +37,7 @@ public class LogDao {
 
     public Log insertLog(Log log){
         log.setId(UUID.randomUUID().toString());
+        System.out.println(log);
         Map<String, Object> dataMap = objectMapper.convertValue(log, Map.class);
         IndexRequest indexRequest = new IndexRequest(INDEX, TYPE, log.getId())
                 .source(dataMap);

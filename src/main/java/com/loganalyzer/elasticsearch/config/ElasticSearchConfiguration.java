@@ -1,5 +1,6 @@
 package com.loganalyzer.elasticsearch.config;
 
+import com.loganalyzer.elasticsearch.dao.LogDao;
 import com.loganalyzer.elasticsearch.receiver.LogEventsGenerator;
 import com.loganalyzer.elasticsearch.util.Utility;
 import org.apache.commons.io.FileUtils;
@@ -39,6 +40,9 @@ public class ElasticSearchConfiguration extends AbstractFactoryBean<RestHighLeve
 
     @Autowired
     ApplicationArguments appArgs;
+
+    @Autowired
+    LogDao logDao;
 
     private String logsPath;
 
@@ -140,7 +144,7 @@ public class ElasticSearchConfiguration extends AbstractFactoryBean<RestHighLeve
     }
 
     private void generator(String format, File file){
-        LogEventsGenerator receiver = new LogEventsGenerator();
+        LogEventsGenerator receiver = new LogEventsGenerator(logDao);
         receiver.setTimestampFormat(timestamp);
         receiver.setLogFormat(format);
         receiver.setFileURL("file:///" + file.getAbsolutePath());
