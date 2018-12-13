@@ -1,6 +1,7 @@
 package com.loganalyzer.elasticsearch.controller;
 
 import com.loganalyzer.elasticsearch.bean.Log;
+import com.loganalyzer.elasticsearch.bean.SearchCriteria;
 import com.loganalyzer.elasticsearch.dao.LogDao;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.profile.ProfileShardResult;
@@ -26,9 +27,9 @@ public class LogController {
         this.logDao = logDao;
     }
 
-    @GetMapping("/{from}/{size}")
-    public List<String> getAllTypes(@PathVariable Integer from, @PathVariable Integer size){
-        return logDao.getAllTypes(from, size);
+    @PostMapping("/search")
+    public List<String> getAllTypes(@RequestBody SearchCriteria criteria){
+        return logDao.getAllTypes(criteria);
     }
 
     @PostMapping

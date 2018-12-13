@@ -3,6 +3,7 @@ package com.loganalyzer.elasticsearch.dao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loganalyzer.elasticsearch.bean.Log;
+import com.loganalyzer.elasticsearch.bean.SearchCriteria;
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -61,14 +62,14 @@ public class LogDao {
         return log;
     }
 
-    public List<String> getAllTypes(Integer from, Integer size){
+    public List<String> getAllTypes(SearchCriteria criteria){
 
         List<String> list = new ArrayList<>();
         SearchRequest searchRequest = new SearchRequest(INDEX);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.matchQuery("level", "INFO"));
-        searchSourceBuilder.from(from);
-        searchSourceBuilder.size(size);
+        searchSourceBuilder.from(criteria.getStart());
+        searchSourceBuilder.size(criteria.getSize());
         searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
         searchRequest.source(searchSourceBuilder);
         SearchResponse searchResponse = null;
