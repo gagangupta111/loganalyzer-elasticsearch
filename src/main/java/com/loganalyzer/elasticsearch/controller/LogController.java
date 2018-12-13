@@ -26,9 +26,9 @@ public class LogController {
         this.logDao = logDao;
     }
 
-    @GetMapping
-    public List<Map<String, Object>> getAllTypes(){
-        return logDao.getAllTypes();
+    @GetMapping("/{from}/{size}")
+    public List<String> getAllTypes(@PathVariable Integer from, @PathVariable Integer size){
+        return logDao.getAllTypes(from, size);
     }
 
     @PostMapping
@@ -49,5 +49,10 @@ public class LogController {
     @DeleteMapping("/{id}")
     public void deleteLogById(@PathVariable String id){
         logDao.deleteLogById(id);
+    }
+
+    @DeleteMapping
+    public void deleteAll(){
+        logDao.deleteAll();
     }
 }

@@ -61,14 +61,14 @@ public class LogDao {
         return log;
     }
 
-    public List<Map<String, Object>> getAllTypes(){
+    public List<String> getAllTypes(Integer from, Integer size){
 
-        List<Map<String, Object>> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         SearchRequest searchRequest = new SearchRequest(INDEX);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.matchQuery("level", "INFO"));
-        searchSourceBuilder.from(0);
-        searchSourceBuilder.size(5);
+        searchSourceBuilder.from(from);
+        searchSourceBuilder.size(size);
         searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
         searchRequest.source(searchSourceBuilder);
         SearchResponse searchResponse = null;
@@ -80,7 +80,7 @@ public class LogDao {
         }
 
         for (SearchHit hit : searchResponse.getHits().getHits()){
-            list.add(hit.getSourceAsMap());
+            list.add(hit.getId());
         }
 
         return list;
@@ -124,6 +124,17 @@ public class LogDao {
         } catch (java.io.IOException e){
             e.getLocalizedMessage();
         }
+    }
+
+    public void deleteAll() {
+        DeleteRequest deleteRequest = new DeleteRequest(INDEX);
+        DeleteResponse deleteResponse = null;
+        try {
+            deleteResponse = restHighLevelClient.delete(deleteRequest);
+        } catch (java.io.IOException e){
+            e.getLocalizedMessage();
+        }
+
     }
 
 }
