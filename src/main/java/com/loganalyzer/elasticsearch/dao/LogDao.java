@@ -23,7 +23,9 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.profile.ProfileShardResult;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -59,11 +61,15 @@ public class LogDao {
         return log;
     }
 
-    public SearchHit[] getAllTypes(){
+    public List<Map<String, Object>> getAllTypes(){
 
+        List<Map<String, Object>> list = new ArrayList<>();
         SearchRequest searchRequest = new SearchRequest(INDEX);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.matchQuery("level", "INFO"));
+        searchSourceBuilder.from(0);
+        searchSourceBuilder.size(5);
+        searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
         searchRequest.source(searchSourceBuilder);
         SearchResponse searchResponse = null;
 
@@ -73,7 +79,11 @@ public class LogDao {
             e.getLocalizedMessage();
         }
 
-        return searchResponse.getHits().getHits();
+        for (SearchHit hit : searchResponse.getHits().getHits()){
+            list.add(hit.getSourceAsMap());
+        }
+
+        return list;
     }
 
     public Map<String, Object> getLogById(String id){
