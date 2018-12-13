@@ -730,15 +730,16 @@ public class LogEventsGenerator extends LogFilePatternReceiver {
     public void doPost(LoggingEvent event) {
 
         Log log = new Log();
-        log.setId(UUID.randomUUID().toString());
         log.setTimestamp(new Timestamp(event.getTimeStamp()));
         log.setLevel(event.getLevel().toString());
         log.setClassName(event.getLocationInformation().getClassName().trim());
         log.setMethodName(event.getLocationInformation().getMethodName().trim());
         log.setClassFile(event.getLocationInformation().getFileName().trim());
         log.setLine(event.getLocationInformation().getLineNumber().trim());
-        log.setLogFile(event.getLocationInformation().getFileName());
+        log.setLogFile(Utility.shortFileName(Utility.getFileName(event.getMDC("application").toString())));
         log.setMessage(event.getMessage().toString().trim());
+
+
 
         System.out.println(log);
         System.out.println("=======================================================================================");

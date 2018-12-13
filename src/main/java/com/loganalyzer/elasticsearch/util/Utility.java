@@ -10,7 +10,7 @@ public class Utility {
 
     public static String getFileName(String fullPath){
 
-        return fullPath.substring(fullPath.lastIndexOf("\\") + 1, fullPath.lastIndexOf("."));
+        return fullPath.substring(fullPath.lastIndexOf("/") + 1, fullPath.lastIndexOf("."));
 
     }
 
