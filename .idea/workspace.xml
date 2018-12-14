@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68fe8b55-d34e-4dc1-a4e0-6576ebe30866" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/controller/LogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/controller/LogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/dao/LogDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/dao/LogDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/bean/SearchCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/bean/SearchCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/receiver/LogEventsGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/receiver/LogEventsGenerator.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -21,7 +20,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/dao/LogDao.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="87">
-              <caret line="78" column="16" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="16" />
+              <caret line="119" selection-start-line="119" selection-end-line="119" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -29,56 +28,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchSourceBuilder.class" pinned="false" current-in-tab="true">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/elasticsearch/elasticsearch/6.1.2/elasticsearch-6.1.2.jar!/org/elasticsearch/search/builder/SearchSourceBuilder.class">
+      <file leaf-file-name="LogEventsGenerator.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/receiver/LogEventsGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="56" column="19" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
+            <state relative-caret-position="62">
+              <caret line="736" lean-forward="true" selection-start-line="736" selection-end-line="736" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RestHighLevelClient.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/elasticsearch/client/elasticsearch-rest-high-level-client/6.1.2/elasticsearch-rest-high-level-client-6.1.2.jar!/org/elasticsearch/client/RestHighLevelClient.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="197" column="32" selection-start-line="197" selection-start-column="32" selection-end-line="197" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WhitespaceAnalyzer.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-analyzers-common/7.1.0/lucene-analyzers-common-7.1.0-sources.jar!/org/apache/lucene/analysis/core/WhitespaceAnalyzer.java">
+      <file leaf-file-name="SearchCriteria.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/bean/SearchCriteria.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="24" column="50" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Analyzer.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-core/7.1.0/lucene-core-7.1.0-sources.jar!/org/apache/lucene/analysis/Analyzer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="83" column="26" lean-forward="true" selection-start-line="83" selection-start-column="22" selection-end-line="83" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SynonymMap.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-analyzers-common/7.1.0/lucene-analyzers-common-7.1.0-sources.jar!/org/apache/lucene/analysis/synonym/SynonymMap.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-15">
-              <caret line="295" column="18" selection-start-line="295" selection-start-column="18" selection-end-line="295" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QueryBuilder.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-core/7.1.0/lucene-core-7.1.0-sources.jar!/org/apache/lucene/util/QueryBuilder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="66" column="16" lean-forward="true" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="21" />
+              <caret line="99" lean-forward="true" selection-start-line="99" selection-end-line="99" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#760#761#0" expanded="true" />
+                <element signature="e#790#791#0" expanded="true" />
+                <element signature="e#836#837#0" expanded="true" />
+                <element signature="e#874#875#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -134,10 +107,10 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/util/Utility.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/config/ElasticSearchConfiguration.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/receiver/LogEventsGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/bean/SearchCriteria.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/controller/LogController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/dao/LogDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/receiver/LogEventsGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/bean/SearchCriteria.java" />
       </list>
     </option>
   </component>
@@ -270,118 +243,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.lucene:lucene-analyzers-common:7.1.0" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.lucene:lucene-analyzers-common:7.1.0" type="70bed36:NamedLibraryElementNode" />
-              <item name="lucene-analyzers-common-7.1.0.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.lucene:lucene-analyzers-common:7.1.0" type="70bed36:NamedLibraryElementNode" />
-              <item name="lucene-analyzers-common-7.1.0.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.lucene:lucene-analyzers-common:7.1.0" type="70bed36:NamedLibraryElementNode" />
-              <item name="lucene-analyzers-common-7.1.0.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="lucene" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.lucene:lucene-analyzers-common:7.1.0" type="70bed36:NamedLibraryElementNode" />
-              <item name="lucene-analyzers-common-7.1.0.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="lucene" type="462c0819:PsiDirectoryNode" />
-              <item name="analysis" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.lucene:lucene-analyzers-common:7.1.0" type="70bed36:NamedLibraryElementNode" />
-              <item name="lucene-analyzers-common-7.1.0.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="lucene" type="462c0819:PsiDirectoryNode" />
-              <item name="analysis" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.elasticsearch.client:elasticsearch-rest-high-level-client:6.1.2" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.elasticsearch.client:elasticsearch-rest-high-level-client:6.1.2" type="70bed36:NamedLibraryElementNode" />
-              <item name="elasticsearch-rest-high-level-client-6.1.2.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.elasticsearch.client:elasticsearch-rest-high-level-client:6.1.2" type="70bed36:NamedLibraryElementNode" />
-              <item name="elasticsearch-rest-high-level-client-6.1.2.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.elasticsearch:elasticsearch:6.1.2" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.elasticsearch:elasticsearch:6.1.2" type="70bed36:NamedLibraryElementNode" />
-              <item name="elasticsearch-6.1.2.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.elasticsearch:elasticsearch:6.1.2" type="70bed36:NamedLibraryElementNode" />
-              <item name="elasticsearch-6.1.2.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.elasticsearch:elasticsearch:6.1.2" type="70bed36:NamedLibraryElementNode" />
-              <item name="elasticsearch-6.1.2.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="elasticsearch" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.elasticsearch:elasticsearch:6.1.2" type="70bed36:NamedLibraryElementNode" />
-              <item name="elasticsearch-6.1.2.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="elasticsearch" type="462c0819:PsiDirectoryNode" />
-              <item name="search" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="loganalyzer-elasticsearch" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.elasticsearch:elasticsearch:6.1.2" type="70bed36:NamedLibraryElementNode" />
-              <item name="elasticsearch-6.1.2.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="elasticsearch" type="462c0819:PsiDirectoryNode" />
-              <item name="search" type="462c0819:PsiDirectoryNode" />
-              <item name="builder" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -492,6 +353,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="bottom" id="TODO" order="10" />
@@ -503,16 +365,16 @@
       <window_info anchor="right" id="Maven Projects" order="3" weight="0.32980332" />
       <window_info anchor="bottom" id="Run" order="6" weight="0.32258064" />
       <window_info anchor="bottom" id="Version Control" order="2" weight="0.3293718" />
-      <window_info anchor="bottom" id="Terminal" order="0" weight="0.43293718" />
+      <window_info anchor="bottom" id="Terminal" order="0" weight="0.25466892" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="0" />
-      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.40695915" />
-      <window_info active="true" anchor="bottom" id="Find" order="5" visible="true" weight="0.46689305" />
+      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.25945538" />
+      <window_info anchor="bottom" id="Find" order="5" weight="0.46689305" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="6" weight="0.25" />
       <window_info id="UI Designer" order="1" />
       <window_info anchor="right" id="Theme Preview" order="2" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.29202038" />
+      <window_info active="true" anchor="bottom" id="Debug" order="7" visible="true" weight="0.43463498" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info id="Designer" order="0" />
@@ -560,7 +422,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/dao/LogDao.java</url>
-          <line>127</line>
+          <line>119</line>
           <properties />
           <option name="timeStamp" value="29" />
         </line-breakpoint>
@@ -799,16 +661,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/receiver/LogEventsGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="736" lean-forward="true" selection-start-line="736" selection-end-line="736" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/elasticsearch/elasticsearch/6.1.2/elasticsearch-6.1.2.jar!/org/elasticsearch/action/delete/DeleteRequestBuilder.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-211">
@@ -836,28 +688,6 @@
           <caret line="207" lean-forward="true" selection-start-line="207" selection-end-line="207" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/bean/SearchCriteria.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#760#761#0" expanded="true" />
-            <element signature="e#790#791#0" expanded="true" />
-            <element signature="e#836#837#0" expanded="true" />
-            <element signature="e#874#875#0" expanded="true" />
-            <element signature="e#661#662#0" expanded="true" />
-            <element signature="e#689#690#0" expanded="true" />
-            <element signature="e#732#733#0" expanded="true" />
-            <element signature="e#766#767#0" expanded="true" />
-            <element signature="e#798#799#0" expanded="true" />
-            <element signature="e#825#826#0" expanded="true" />
-            <element signature="e#866#867#0" expanded="true" />
-            <element signature="e#898#899#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -977,13 +807,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-core/7.1.0/lucene-core-7.1.0-sources.jar!/org/apache/lucene/analysis/Analyzer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="83" column="26" lean-forward="true" selection-start-line="83" selection-start-column="22" selection-end-line="83" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-analyzers-common/7.1.0/lucene-analyzers-common-7.1.0-sources.jar!/org/apache/lucene/analysis/synonym/SynonymMap.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-15">
@@ -1005,20 +828,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/elasticsearch/elasticsearch/6.1.2/elasticsearch-6.1.2.jar!/org/elasticsearch/search/builder/SearchSourceBuilder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="56" column="19" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-core/7.1.0/lucene-core-7.1.0-sources.jar!/org/apache/lucene/analysis/Analyzer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="16" column="8" lean-forward="true" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/dao/LogDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="87">
-          <caret line="78" column="16" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="16" />
+          <caret line="119" selection-start-line="119" selection-end-line="119" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/elasticsearch/elasticsearch/6.1.2/elasticsearch-6.1.2.jar!/org/elasticsearch/search/builder/SearchSourceBuilder.class">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/bean/SearchCriteria.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="56" column="19" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
+        <state relative-caret-position="153">
+          <caret line="99" lean-forward="true" selection-start-line="99" selection-end-line="99" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#760#761#0" expanded="true" />
+            <element signature="e#790#791#0" expanded="true" />
+            <element signature="e#836#837#0" expanded="true" />
+            <element signature="e#874#875#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/loganalyzer/elasticsearch/receiver/LogEventsGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="736" lean-forward="true" selection-start-line="736" selection-end-line="736" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

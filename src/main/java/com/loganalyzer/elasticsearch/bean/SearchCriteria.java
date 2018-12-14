@@ -33,7 +33,7 @@ public class SearchCriteria {
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.message = message.toLowerCase();
     }
 
     public Integer getStart() {
@@ -99,7 +99,7 @@ public class SearchCriteria {
     }
 
     public void setClassFile(String classFile) {
-        this.classFile = classFile;
+        this.classFile = classFile.toLowerCase();
     }
 
     public String getLine() {
