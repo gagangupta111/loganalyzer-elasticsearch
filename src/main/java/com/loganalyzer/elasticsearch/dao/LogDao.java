@@ -73,7 +73,9 @@ public class LogDao {
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
 
         if (criteria.getClassFile() != null){
-            boolQuery.must(QueryBuilders.matchQuery("classFile", criteria.getClassFile()));
+            boolQuery.must(QueryBuilders
+                    .regexpQuery("classFile", ".*" + criteria.getClassFile() + ".*")
+                    );
         }
 
         if (criteria.getLevel() != null){
