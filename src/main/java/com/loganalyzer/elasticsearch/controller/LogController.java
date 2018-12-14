@@ -28,7 +28,7 @@ public class LogController {
     }
 
     @PostMapping("/search")
-    public List<String> getAllTypes(@RequestBody SearchCriteria criteria){
+    public List<Map<String, Object>> getAllTypes(@RequestBody SearchCriteria criteria){
         return logDao.getAllTypes(criteria);
     }
 

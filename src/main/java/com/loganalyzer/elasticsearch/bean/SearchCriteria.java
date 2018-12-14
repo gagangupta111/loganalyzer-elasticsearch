@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.loganalyzer.elasticsearch.util.JsonDateDeSerializer;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 @JsonAutoDetect
 public class SearchCriteria {
@@ -17,11 +20,20 @@ public class SearchCriteria {
     private String classFile;
     private String line;
     private String logFile;
+    private String message;
 
     private Integer start;
     private Integer size;
 
     public SearchCriteria() {
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public Integer getStart() {
@@ -104,5 +116,40 @@ public class SearchCriteria {
 
     public void setLogFile(String logFile) {
         this.logFile = logFile;
+    }
+
+    public Map<String, Object> map(){
+
+        Map<String, Object> map = new HashMap<>();
+        if (starting != null && ending != null){
+            map.put("starting", starting);
+            map.put("ending", ending);
+        }
+
+        if (level != null){
+            map.put("level", level);
+        }
+
+        if (className != null){
+            map.put("className", className);
+        }
+
+        if (methodName != null){
+            map.put("methodName", methodName);
+        }
+
+        if (classFile != null){
+            map.put("classFile", classFile);
+        }
+
+        if (line != null){
+            map.put("line", line);
+        }
+
+        if (logFile != null){
+            map.put("logFile", logFile);
+        }
+
+        return map;
     }
 }

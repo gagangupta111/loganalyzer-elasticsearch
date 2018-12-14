@@ -18,6 +18,8 @@ import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -62,14 +64,52 @@ public class LogDao {
         return log;
     }
 
-    public List<String> getAllTypes(SearchCriteria criteria){
+    public List<Map<String, Object>> getAllTypes(SearchCriteria criteria){
 
-        List<String> list = new ArrayList<>();
+        List<Map<String, Object>> list = new ArrayList<>();
         SearchRequest searchRequest = new SearchRequest(INDEX);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.matchQuery("level", "INFO"));
-        searchSourceBuilder.from(criteria.getStart());
-        searchSourceBuilder.size(criteria.getSize());
+
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+
+        if (criteria.getClassFile() != null){
+            boolQuery.must(QueryBuilders.matchQuery("classFile", criteria.getClassFile()));
+        }
+
+        if (criteria.getLevel() != null){
+            boolQuery.must(QueryBuilders.matchQuery("level", criteria.getLevel()));
+        }
+
+        if (criteria.getLine() != null){
+            boolQuery.must(QueryBuilders.matchQuery("line", criteria.getLine()));
+        }
+
+        if (criteria.getLogFile() != null){
+            boolQuery.must(QueryBuilders.matchQuery("logFile", criteria.getLogFile()));
+        }
+
+        if (criteria.getMethodName() != null){
+            boolQuery.must(QueryBuilders.matchQuery("methodName", criteria.getMethodName()));
+        }
+
+        if (criteria.getClassName() != null){
+            boolQuery.must(QueryBuilders.matchQuery("className", criteria.getClassName()));
+        }
+
+        if (criteria.getMessage() != null){
+            boolQuery.must(QueryBuilders.matchQuery("message", criteria.getMessage()));
+        }
+
+        searchSourceBuilder.query(boolQuery);
+
+        if (criteria.getStart() != null){
+            searchSourceBuilder.from(criteria.getStart());
+        }
+
+        if (criteria.getSize() != null){
+            searchSourceBuilder.size(criteria.getSize());
+        }
+
         searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
         searchRequest.source(searchSourceBuilder);
         SearchResponse searchResponse = null;
@@ -81,7 +121,7 @@ public class LogDao {
         }
 
         for (SearchHit hit : searchResponse.getHits().getHits()){
-            list.add(hit.getId());
+            list.add(getLogById(hit.getId()));
         }
 
         return list;
