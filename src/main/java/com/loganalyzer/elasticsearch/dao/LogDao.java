@@ -141,13 +141,14 @@ public class LogDao {
                 "}";
 
         String queryScript = "{" +
-                "    \"query\": " +
+                "\"query\":" +
                 "{" +
-                "        \"query_string\" : {" +
-                "            \"default_field\" : \"className\"," +
-                "            \"query\" : \"*springframework*\"" +
-                "        }" +
-                "    }" +
+                "\"query_string\":" +
+                "{" +
+                "\"default_field\" : \"className\"," +
+                "\"query\" : \"*FilterInvocationSecurityMetadataSourceParser*\"" +
+                "}" +
+                "}" +
                 "}";
 
         String multiScript = "{" +
@@ -161,7 +162,7 @@ public class LogDao {
                 "  }" +
                 "}";
 
-        searchTemplateRequest.setScript(regexpScript);
+        searchTemplateRequest.setScript(queryScript);
 
         Map<String, Object> scriptParams = new HashMap<>();
         scriptParams.put("field", "message");
