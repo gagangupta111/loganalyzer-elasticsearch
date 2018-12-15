@@ -129,14 +129,36 @@ public class LogDao {
         searchTemplateRequest.setRequest(searchRequest);
 
         searchTemplateRequest.setScriptType(ScriptType.INLINE);
-        searchTemplateRequest.setScript(
-                "{" +
-                        "  \"query\": { \"regexp\" : { \"{{field}}\" : \"{{value}}\" } }" +
-                        "}");
+
+        String regexpScript  = "{" +
+                "  \"query\": { \"regexp\" : { \"{{field}}\" : \"{{value}}\" } }" +
+                "}";
+
+        String queryScript = "{" +
+                "    \"query\": {" +
+                "        \"query_string\" : {" +
+                "            \"default_field\" : \"message\"," +
+                "            \"query\" : \"*a*\"" +
+                "        }" +
+                "    }" +
+                "}";
+
+        String multiScript = "{" +
+                "  \"query\": {" +
+                "    \"bool\": {" +
+                "      \"must\": [" +
+                "        { \"regexp\": { \"className\":  \".*springframework.*\" }}," +
+                "        { \"regexp\": { \"message\": \".*definitions.*\"   }}" +
+                "      ]" +
+                "    }" +
+                "  }" +
+                "}";
+
+        searchTemplateRequest.setScript(multiScript);
 
         Map<String, Object> scriptParams = new HashMap<>();
-        scriptParams.put("field", "classFile");
-        scriptParams.put("value", ".*ervice.*");
+        scriptParams.put("field", "message");
+        scriptParams.put("value", ".*a.*");
 
         searchTemplateRequest.setScriptParams(scriptParams);
 

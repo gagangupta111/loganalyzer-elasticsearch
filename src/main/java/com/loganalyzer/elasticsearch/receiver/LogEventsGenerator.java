@@ -743,7 +743,7 @@ public class LogEventsGenerator extends LogFilePatternReceiver {
         log.setClassFile(event.getLocationInformation().getFileName().trim());
         log.setLine(event.getLocationInformation().getLineNumber().trim());
         log.setLogFile(Utility.shortFileName(Utility.getFileName(event.getMDC("application").toString())));
-        log.setMessage(event.getMessage().toString().trim().toLowerCase());
+        log.setMessage(event.getMessage().toString().trim());
 
         logDao.insertLog(log);
         System.out.println("=======================================================================================");

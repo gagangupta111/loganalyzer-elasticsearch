@@ -33,7 +33,7 @@ public class SearchCriteria {
     }
 
     public void setMessage(String message) {
-        this.message = message.toLowerCase();
+        this.message = message;
     }
 
     public Integer getStart() {
