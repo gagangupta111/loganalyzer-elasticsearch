@@ -69,6 +69,17 @@ public class LogDao {
         return log;
     }
 
+    private String getMultiScriptAppend(String fieldHolder, String valueHolder){
+        return "{" +
+                "\"query_string\":" +
+                "{" +
+                "\"default_field\" : \"{{" + fieldHolder + "}}\"," +
+                "\"query\" : \"*{{" + valueHolder + "}}*\"" +
+                "}" +
+                "}" +
+                ",";
+    }
+
     public List<Map<String, Object>> getAllTypes(SearchCriteria criteria){
 
         List<Map<String, Object>> list = new ArrayList<>();
@@ -76,42 +87,101 @@ public class LogDao {
 
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
-        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+        String multiScript = "{" +
+                "\"query\":" +
+                "{" +
+                "\"bool\":" +
+                "{" +
+                "\"must\":" +
+                "[";
 
-        if (criteria.getClassFile() != null){
-            boolQuery.must(QueryBuilders
-                    .regexpQuery("classFile", ".*" + criteria.getClassFile() + ".*")
-                    );
+        Map<String, Object> scriptParams = new HashMap<>();
+        String fieldHolder;
+        String valueHolder;
+
+        if (criteria.getClassFile() != null) {
+
+            fieldHolder = "classFileField";
+            valueHolder = "classFileValue";
+
+            multiScript += getMultiScriptAppend(fieldHolder, valueHolder);
+
+            scriptParams.put(fieldHolder, "classFile");
+            scriptParams.put(valueHolder, criteria.getClassFile());
+
         }
 
         if (criteria.getLevel() != null){
-            boolQuery.must(QueryBuilders.matchQuery("level", criteria.getLevel()));
+
+            fieldHolder = "levelField";
+            valueHolder = "levelValue";
+
+            multiScript += getMultiScriptAppend(fieldHolder, valueHolder);
+
+            scriptParams.put(fieldHolder, "level");
+            scriptParams.put(valueHolder, criteria.getLevel());
+
         }
 
         if (criteria.getLine() != null){
-            boolQuery.must(QueryBuilders.matchQuery("line", criteria.getLine()));
+
+            fieldHolder = "lineField";
+            valueHolder = "lineValue";
+
+            multiScript += getMultiScriptAppend(fieldHolder, valueHolder);
+
+            scriptParams.put(fieldHolder, "line");
+            scriptParams.put(valueHolder, criteria.getLine());
+
         }
 
         if (criteria.getLogFile() != null){
-            boolQuery.must(QueryBuilders.matchQuery("logFile", criteria.getLogFile()));
+
+            fieldHolder = "logFileField";
+            valueHolder = "logFileValue";
+
+            multiScript += getMultiScriptAppend(fieldHolder, valueHolder);
+
+            scriptParams.put(fieldHolder, "logFile");
+            scriptParams.put(valueHolder, criteria.getLogFile());
+
         }
 
         if (criteria.getMethodName() != null){
-            boolQuery.must(QueryBuilders.matchQuery("methodName", criteria.getMethodName()));
+
+            fieldHolder = "methodNameField";
+            valueHolder = "methodNameValue";
+
+            multiScript += getMultiScriptAppend(fieldHolder, valueHolder);
+
+            scriptParams.put(fieldHolder, "methodName");
+            scriptParams.put(valueHolder, criteria.getMethodName());
+
         }
 
         if (criteria.getClassName() != null){
-            boolQuery.must(QueryBuilders.matchQuery("className", criteria.getClassName()));
+
+            fieldHolder = "classNameField";
+            valueHolder = "classNameValue";
+
+            multiScript += getMultiScriptAppend(fieldHolder, valueHolder);
+
+            scriptParams.put(fieldHolder, "className");
+            scriptParams.put(valueHolder, criteria.getClassName());
+
         }
 
         if (criteria.getMessage() != null){
-            boolQuery.must(QueryBuilders
-                    .regexpQuery("message", ".*" + criteria.getMessage() + ".*")
-            );
+
+            fieldHolder = "messageField";
+            valueHolder = "messageValue";
+
+            multiScript += getMultiScriptAppend(fieldHolder, valueHolder);
+
+            scriptParams.put(fieldHolder, "message");
+            scriptParams.put(valueHolder, criteria.getMessage());
+
         }
-
-
-        searchSourceBuilder.query(boolQuery);
 
         if (criteria.getStart() != null){
             searchSourceBuilder.from(criteria.getStart());
@@ -121,78 +191,23 @@ public class LogDao {
             searchSourceBuilder.size(criteria.getSize());
         }
 
+        multiScript = ',' == (multiScript.charAt(multiScript.length() - 1)) ? multiScript.substring(0, multiScript.length() - 1) : multiScript;
+
+        multiScript += "]" +
+                "}" +
+                "}" +
+                "}";
+
         searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
         searchRequest.source(searchSourceBuilder);
-        SearchTemplateResponse searchTemplateResponse = null;
 
         SearchTemplateRequest searchTemplateRequest = new SearchTemplateRequest();
         searchTemplateRequest.setRequest(searchRequest);
-
         searchTemplateRequest.setScriptType(ScriptType.INLINE);
-
-        String regexpScript  = "{" +
-                "\"query\":" +
-
-                "{ " +
-                "\"regexp\":" +
-                "{" +
-                "\"className\" : \".*springframework.*\" " +
-                "}" +
-                "}" +
-
-                "}";
-
-        String queryScript = "{" +
-                "\"query\":" +
-
-                "{" +
-                "\"query_string\":" +
-                "{" +
-                "\"default_field\" : \"className\"," +
-                "\"query\" : \"*FilterInvocationSecurityMetadataSourceParser*\"" +
-                "}" +
-                "}" +
-
-                "}";
-
-        String multiScript = "{" +
-                "\"query\":" +
-                "{" +
-                "\"bool\":" +
-                "{" +
-                "\"must\":" +
-                "[" +
-
-                "{" +
-                "\"query_string\":" +
-                "{" +
-                "\"default_field\" : \"className\"," +
-                "\"query\" : \"*xmlBeanDefinitionReader*\"" +
-                "}" +
-                "}" +
-
-                "," +
-
-                "{" +
-                "\"query_string\":" +
-                "{" +
-                "\"default_field\" : \"message\"," +
-                "\"query\" : \"*Loading XML bean*\"" +
-                "}" +
-                "}" +
-
-                "]" +
-                "}" +
-                "}" +
-                "}";
-
         searchTemplateRequest.setScript(multiScript);
-
-        Map<String, Object> scriptParams = new HashMap<>();
-        scriptParams.put("field", "message");
-        scriptParams.put("value", ".*a.*");
-
         searchTemplateRequest.setScriptParams(scriptParams);
+
+        SearchTemplateResponse searchTemplateResponse = null;
 
         try {
             searchTemplateResponse = restHighLevelClient.searchTemplate(searchTemplateRequest, RequestOptions.DEFAULT);

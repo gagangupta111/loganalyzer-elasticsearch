@@ -1,0 +1,25 @@
+        String regexpScript  = "{" +
+                "\"query\":" +
+
+                "{ " +
+                "\"regexp\":" +
+                "{" +
+                "\"className\" : \".*springframework.*\" " +
+                "}" +
+                "}" +
+
+                "}";
+
+        String queryScript = "{" +
+                "\"query\":" +
+
+                "{" +
+                "\"query_string\":" +
+                "{" +
+                "\"default_field\" : \"className\"," +
+                "\"query\" : \"*FilterInvocationSecurityMetadataSourceParser*\"" +
+                "}" +
+                "}" +
+
+                "}";
+
