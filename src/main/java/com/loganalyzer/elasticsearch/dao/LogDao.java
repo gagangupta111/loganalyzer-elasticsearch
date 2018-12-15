@@ -167,7 +167,7 @@ public class LogDao {
                 "\"query_string\":" +
                 "{" +
                 "\"default_field\" : \"className\"," +
-                "\"query\" : \"*XmlBeanDefinitionReader*\"" +
+                "\"query\" : \"*xmlBeanDefinitionReader*\"" +
                 "}" +
                 "}" +
 
