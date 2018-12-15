@@ -15,12 +15,17 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
+import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.script.ScriptType;
+import org.elasticsearch.script.mustache.MultiSearchTemplateResponse;
+import org.elasticsearch.script.mustache.SearchTemplateRequest;
+import org.elasticsearch.script.mustache.SearchTemplateResponse;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.profile.ProfileShardResult;
@@ -68,6 +73,7 @@ public class LogDao {
 
         List<Map<String, Object>> list = new ArrayList<>();
         SearchRequest searchRequest = new SearchRequest(INDEX);
+
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
@@ -117,15 +123,30 @@ public class LogDao {
 
         searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
         searchRequest.source(searchSourceBuilder);
-        SearchResponse searchResponse = null;
+        SearchTemplateResponse searchTemplateResponse = null;
+
+        SearchTemplateRequest searchTemplateRequest = new SearchTemplateRequest();
+        searchTemplateRequest.setRequest(searchRequest);
+
+        searchTemplateRequest.setScriptType(ScriptType.INLINE);
+        searchTemplateRequest.setScript(
+                "{" +
+                        "  \"query\": { \"regexp\" : { \"{{field}}\" : \"{{value}}\" } }" +
+                        "}");
+
+        Map<String, Object> scriptParams = new HashMap<>();
+        scriptParams.put("field", "classFile");
+        scriptParams.put("value", ".*ervice.*");
+
+        searchTemplateRequest.setScriptParams(scriptParams);
 
         try {
-            searchResponse = restHighLevelClient.search(searchRequest);
+            searchTemplateResponse = restHighLevelClient.searchTemplate(searchTemplateRequest, RequestOptions.DEFAULT);
         } catch (java.io.IOException e){
             e.getLocalizedMessage();
         }
 
-        for (SearchHit hit : searchResponse.getHits().getHits()){
+        for (SearchHit hit : searchTemplateResponse.getResponse().getHits().getHits()){
             list.add(getLogById(hit.getId()));
         }
 
