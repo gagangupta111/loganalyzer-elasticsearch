@@ -650,7 +650,7 @@ public class LogEventsGenerator extends LogFilePatternReceiver {
             } else {
                 info = new LocationInfo(eventFileName, className, methodName, lineNumber);
             }
-
+            
             LoggingEvent event = new LoggingEvent((String)null, logger, timeStamp, levelImpl, message, threadName, new ThrowableInformation(exception), ndc, info, properties);
             return event;
         }
@@ -740,7 +740,7 @@ public class LogEventsGenerator extends LogFilePatternReceiver {
         log.setLevel(event.getLevel().toString());
         log.setClassName(event.getLocationInformation().getClassName().trim());
         log.setMethodName(event.getLocationInformation().getMethodName().trim());
-        log.setClassFile(event.getLocationInformation().getFileName().trim().toLowerCase());
+        log.setClassFile(event.getLocationInformation().getFileName().trim());
         log.setLine(event.getLocationInformation().getLineNumber().trim());
         log.setLogFile(Utility.shortFileName(Utility.getFileName(event.getMDC("application").toString())));
         log.setMessage(event.getMessage().toString().trim().toLowerCase());

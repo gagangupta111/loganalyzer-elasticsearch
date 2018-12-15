@@ -46,6 +46,8 @@ public class ElasticSearchConfiguration extends AbstractFactoryBean<RestHighLeve
 
     private String logsPath;
 
+    private String pathSeparator;
+
     @Value("${formatPattern}")
     private String formatPattern;
 
@@ -64,6 +66,7 @@ public class ElasticSearchConfiguration extends AbstractFactoryBean<RestHighLeve
     @PostConstruct
     public void initialize(){
 
+            pathSeparator = Utility.getPathSeparator();
             logsPath = appArgs.getNonOptionArgs().get(0);
 
             List<File> list = new ArrayList<File>();
@@ -73,7 +76,7 @@ public class ElasticSearchConfiguration extends AbstractFactoryBean<RestHighLeve
                 String ext = FilenameUtils.getExtension(file1.getPath());
                 if (compressedList[0].equals(ext)){
                     String inputFile = file1.getAbsolutePath();
-                    String outputFolder = inputFile.substring(0, inputFile.lastIndexOf("\\"));
+                    String outputFolder = inputFile.substring(0, inputFile.lastIndexOf(pathSeparator));
                     unZipIt(inputFile, outputFolder);
                 }else if (compressedList[1].equals(ext)){
                     String inputFile = file1.getAbsolutePath();
@@ -132,11 +135,13 @@ public class ElasticSearchConfiguration extends AbstractFactoryBean<RestHighLeve
     }
 
     private RestHighLevelClient buildClient() {
+
+        String host = "localhost"; // "aabrd0310.aaspl-brd.com";
         try {
             restHighLevelClient = new RestHighLevelClient(
                     RestClient.builder(
-                            new HttpHost("aabrd0310.aaspl-brd.com", 9200, "http"),
-                            new HttpHost("aabrd0310.aaspl-brd.com", 9201, "http")));
+                            new HttpHost(host, 9200, "http"),
+                            new HttpHost(host, 9201, "http")));
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

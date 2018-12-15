@@ -99,7 +99,7 @@ public class SearchCriteria {
     }
 
     public void setClassFile(String classFile) {
-        this.classFile = classFile.toLowerCase();
+        this.classFile = classFile;
     }
 
     public String getLine() {

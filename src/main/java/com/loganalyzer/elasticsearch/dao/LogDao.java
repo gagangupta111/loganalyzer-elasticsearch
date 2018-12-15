@@ -99,8 +99,11 @@ public class LogDao {
         }
 
         if (criteria.getMessage() != null){
-            boolQuery.must(QueryBuilders.matchQuery("message", criteria.getMessage()));
+            boolQuery.must(QueryBuilders
+                    .regexpQuery("message", ".*" + criteria.getMessage() + ".*")
+            );
         }
+
 
         searchSourceBuilder.query(boolQuery);
 
