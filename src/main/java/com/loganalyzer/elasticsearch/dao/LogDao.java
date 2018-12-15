@@ -132,16 +132,19 @@ public class LogDao {
 
         String regexpScript  = "{" +
                 "\"query\":" +
+
                 "{ " +
                 "\"regexp\":" +
                 "{" +
                 "\"className\" : \".*springframework.*\" " +
                 "}" +
                 "}" +
+
                 "}";
 
         String queryScript = "{" +
                 "\"query\":" +
+
                 "{" +
                 "\"query_string\":" +
                 "{" +
@@ -149,20 +152,41 @@ public class LogDao {
                 "\"query\" : \"*FilterInvocationSecurityMetadataSourceParser*\"" +
                 "}" +
                 "}" +
+
                 "}";
 
         String multiScript = "{" +
-                "  \"query\": {" +
-                "    \"bool\": {" +
-                "      \"must\": [" +
-                "        { \"regexp\": { \"className\":  \".*springframework.*\" }}," +
-                "        { \"regexp\": { \"message\": \".*definitions.*\"   }}" +
-                "      ]" +
-                "    }" +
-                "  }" +
+                "\"query\":" +
+                "{" +
+                "\"bool\":" +
+                "{" +
+                "\"must\":" +
+                "[" +
+
+                "{" +
+                "\"query_string\":" +
+                "{" +
+                "\"default_field\" : \"className\"," +
+                "\"query\" : \"*XmlBeanDefinitionReader*\"" +
+                "}" +
+                "}" +
+
+                "," +
+
+                "{" +
+                "\"query_string\":" +
+                "{" +
+                "\"default_field\" : \"message\"," +
+                "\"query\" : \"*Loading XML bean*\"" +
+                "}" +
+                "}" +
+
+                "]" +
+                "}" +
+                "}" +
                 "}";
 
-        searchTemplateRequest.setScript(queryScript);
+        searchTemplateRequest.setScript(multiScript);
 
         Map<String, Object> scriptParams = new HashMap<>();
         scriptParams.put("field", "message");
