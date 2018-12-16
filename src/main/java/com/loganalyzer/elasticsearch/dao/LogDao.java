@@ -111,9 +111,9 @@ public class LogDao {
                     "\"timestamp\":" +
                     "{" +
                     "\"gte\":\"" + criteria.getStarting().toString() + "\"," +
-                    "\"lte\":\"" + criteria.getEnding().toString() + "\"," +
+                    "\"lt\":\"" + criteria.getEnding().toString() + "\"," +
                     "\"format\":\"yyyy-MMM-dd EEE HH:mm:ss.SSS\"," +
-                    "\"boost\":2.0" +
+                    "\"relation\":\"WITHIN\"" +
                     "}" +
                     "}" +
                     "}" +
