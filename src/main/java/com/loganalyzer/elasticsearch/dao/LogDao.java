@@ -29,6 +29,7 @@ import org.elasticsearch.script.mustache.SearchTemplateResponse;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.profile.ProfileShardResult;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -43,6 +44,9 @@ public class LogDao {
 
     private final String INDEX = "logdata";
     private final String TYPE = "logs";
+
+    @Value("${timestamp}")
+    private String timestamp;
 
     private RestHighLevelClient restHighLevelClient;
 
@@ -98,6 +102,33 @@ public class LogDao {
         Map<String, Object> scriptParams = new HashMap<>();
         String fieldHolder;
         String valueHolder;
+
+        if (criteria.getStarting() != null && criteria.getEnding() != null) {
+
+            multiScript +=
+                    "{" +
+                    "\"query\":" +
+                    "{" +
+                    "\"range\":" +
+                    "{" +
+                    "\"{{timestampField}}\":" +
+                    "{" +
+                    "\"gte\":{{starting}}," +
+                    "\"lte\":{{ending}}," +
+                    "\"format\":{{timestampFormat}}," +
+                    "\"boost\":2.0" +
+                    "}" +
+                    "}" +
+                    "}" +
+                    "}" +
+                    ",";
+
+            scriptParams.put("timestampField", "timestamp");
+            scriptParams.put("starting", criteria.getStarting());
+            scriptParams.put("ending", criteria.getEnding());
+            scriptParams.put("timestampFormat", timestamp);
+
+        }
 
         if (criteria.getClassFile() != null) {
 
@@ -272,5 +303,22 @@ public class LogDao {
         }
 
     }
+
+    String range =
+            "{" +
+            "\"query\":" +
+            "{" +
+            "\"range\":" +
+            "{" +
+            "\"{{timestampField}}\":" +
+            "{" +
+            "\"gte\":{{starting}}," +
+            "\"lte\":{{ending}}," +
+            "\"boost\":2.0" +
+            "}" +
+            "}" +
+            "}" +
+            "}"
+            ;
 
 }
