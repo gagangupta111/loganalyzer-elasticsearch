@@ -94,10 +94,7 @@ public class LogDao {
         String multiScript = "{" +
                 "\"query\":" +
                 "{" +
-                "\"bool\":" +
-                "{" +
-                "\"must\":" +
-                "[";
+                "\"bool\":";
 
         Map<String, Object> scriptParams = new HashMap<>();
         String fieldHolder;
@@ -107,26 +104,22 @@ public class LogDao {
 
             multiScript +=
                     "{" +
-                    "\"query\":" +
+                    "\"must\":" +
                     "{" +
                     "\"range\":" +
                     "{" +
-                    "\"{{timestampField}}\":" +
+                    "\"timestamp\":" +
                     "{" +
-                    "\"gte\":{{starting}}," +
-                    "\"lte\":{{ending}}," +
-                    "\"format\":{{timestampFormat}}," +
+                    "\"gte\":\"" + criteria.getStarting().toString() + "\"," +
+                    "\"lte\":\"" + criteria.getEnding().toString() + "\"," +
+                    "\"format\":\"yyyy-MMM-dd EEE HH:mm:ss.SSS\"," +
                     "\"boost\":2.0" +
                     "}" +
                     "}" +
                     "}" +
                     "}" +
-                    ",";
+                    "";
 
-            scriptParams.put("timestampField", "timestamp");
-            scriptParams.put("starting", criteria.getStarting());
-            scriptParams.put("ending", criteria.getEnding());
-            scriptParams.put("timestampFormat", timestamp);
 
         }
 
@@ -224,8 +217,7 @@ public class LogDao {
 
         multiScript = ',' == (multiScript.charAt(multiScript.length() - 1)) ? multiScript.substring(0, multiScript.length() - 1) : multiScript;
 
-        multiScript += "]" +
-                "}" +
+        multiScript +=
                 "}" +
                 "}";
 
