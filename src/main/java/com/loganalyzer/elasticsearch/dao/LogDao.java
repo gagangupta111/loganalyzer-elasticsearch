@@ -12,23 +12,17 @@ import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.script.ScriptType;
-import org.elasticsearch.script.mustache.MultiSearchTemplateResponse;
 import org.elasticsearch.script.mustache.SearchTemplateRequest;
 import org.elasticsearch.script.mustache.SearchTemplateResponse;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.elasticsearch.search.profile.ProfileShardResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -110,8 +104,8 @@ public class LogDao {
                     "{" +
                     "\"timestamp\":" +
                     "{" +
-                    "\"gte\":\"" + criteria.getStarting().toString() + "\"," +
-                    "\"lt\":\"" + criteria.getEnding().toString() + "\"," +
+                    "\"gte\":\"" + criteria.getStarting() + "\"," +
+                    "\"lte\":\"" + criteria.getEnding() + "\"," +
                     "\"format\":\"yyyy-MMM-dd EEE HH:mm:ss.SSS\"," +
                     "\"relation\":\"WITHIN\"" +
                     "}" +
@@ -119,7 +113,6 @@ public class LogDao {
                     "}" +
                     "}" +
                     "";
-
 
         }
 
