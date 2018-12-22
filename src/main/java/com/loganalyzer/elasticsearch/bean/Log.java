@@ -131,6 +131,21 @@ public class Log {
         return map;
     }
 
+    public static Log mapToLog(Map<String, Object> map){
+
+        Log log = new Log();
+        log.setId(map.get("id").toString());
+        log.setLogTimeStamp(Long.valueOf(map.get("logTimeStamp").toString()));
+        log.setLevel(map.get("level").toString());
+        log.setClassName(map.get("className").toString());
+        log.setMethodName(map.get("methodName").toString());
+        log.setClassFile(map.get("classFile").toString());
+        log.setLine(map.get("line").toString());
+        log.setLogFile(map.get("logFile").toString());
+        log.setMessage(map.get("message").toString());
+        return log;
+    }
+
     @Override
     public String toString() {
         return "Log{" +

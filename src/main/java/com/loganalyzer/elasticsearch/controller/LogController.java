@@ -29,7 +29,7 @@ public class LogController {
     }
 
     @PostMapping("/search")
-    public List<Map<String, Object>> getAllTypes(@RequestBody SearchCriteria criteria) throws IOException {
+    public List<Log> getAllTypes(@RequestBody SearchCriteria criteria) throws IOException {
         return logDao.getAllTypes(criteria);
     }
 
@@ -39,7 +39,7 @@ public class LogController {
     }
 
     @GetMapping("/{id}")
-    public Map<String, Object> getLogById(@PathVariable String id){
+    public Log getLogById(@PathVariable String id){
         return logDao.getLogById(id);
     }
 

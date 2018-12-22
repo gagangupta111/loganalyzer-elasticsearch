@@ -80,11 +80,10 @@ public class LogDao {
                 ",";
     }
 
-    public List<Map<String, Object>> getAllTypes(SearchCriteria criteria) throws IOException {
+    public List<Log> getAllTypes(SearchCriteria criteria) throws IOException {
 
-        List<Map<String, Object>> list = new ArrayList<>();
+        List<Log> list = new ArrayList<>();
         SearchRequest searchRequest = new SearchRequest(INDEX);
-        JsonDateDeSerializer deSerializer = new JsonDateDeSerializer();
 
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
@@ -239,7 +238,7 @@ public class LogDao {
         return list;
     }
 
-    public Map<String, Object> getLogById(String id){
+    public Log getLogById(String id){
         GetRequest getRequest = new GetRequest(INDEX, TYPE, id);
         GetResponse getResponse = null;
         try {
@@ -248,7 +247,7 @@ public class LogDao {
             e.getLocalizedMessage();
         }
         Map<String, Object> sourceAsMap = getResponse.getSourceAsMap();
-        return sourceAsMap;
+        return Log.mapToLog(sourceAsMap);
     }
 
     public Map<String, Object> updateLogById(String id, Log log){
