@@ -746,4 +746,3 @@ public class LogEventsGenerator extends LogFilePatternReceiver {
         System.out.println("=======================================================================================");
     }
 }
-
