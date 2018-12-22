@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ public class LogController {
     }
 
     @PostMapping("/search")
-    public List<Map<String, Object>> getAllTypes(@RequestBody SearchCriteria criteria){
+    public List<Map<String, Object>> getAllTypes(@RequestBody SearchCriteria criteria) throws IOException {
         return logDao.getAllTypes(criteria);
     }
 

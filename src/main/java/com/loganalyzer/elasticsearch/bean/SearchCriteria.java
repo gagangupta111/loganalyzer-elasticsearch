@@ -1,6 +1,10 @@
 package com.loganalyzer.elasticsearch.bean;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.loganalyzer.elasticsearch.util.JsonDateDeSerializer;
+import com.loganalyzer.elasticsearch.util.JsonDateSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,8 +12,8 @@ import java.util.Map;
 @JsonAutoDetect
 public class SearchCriteria {
 
-    private String starting;
-    private String ending;
+    private Long starting;
+    private Long ending;
     private String level;
     private String className;
     private String methodName;
@@ -48,19 +52,21 @@ public class SearchCriteria {
         this.size = size;
     }
 
-    public String getStarting() {
+    public Long getStarting() {
         return starting;
     }
 
-    public void setStarting(String starting) {
+    @JsonDeserialize(using=JsonDateDeSerializer.class)
+    public void setStarting(Long starting) {
         this.starting = starting;
     }
 
-    public String getEnding() {
+    public Long getEnding() {
         return ending;
     }
 
-    public void setEnding(String ending) {
+    @JsonDeserialize(using=JsonDateDeSerializer.class)
+    public void setEnding(Long ending) {
         this.ending = ending;
     }
 

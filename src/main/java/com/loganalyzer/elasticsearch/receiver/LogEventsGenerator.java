@@ -11,8 +11,6 @@ import org.apache.log4j.spi.LocationInfo;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.ThrowableInformation;
 import org.apache.log4j.varia.LogFilePatternReceiver;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -30,7 +28,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.UUID;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -736,7 +733,7 @@ public class LogEventsGenerator extends LogFilePatternReceiver {
     public void doPost(LoggingEvent event) {
 
         Log log = new Log();
-        log.setTimestamp(new Timestamp(event.getTimeStamp()));
+        log.setLogTimeStamp(event.getTimeStamp());
         log.setLevel(event.getLevel().toString());
         log.setClassName(event.getLocationInformation().getClassName().trim());
         log.setMethodName(event.getLocationInformation().getMethodName().trim());

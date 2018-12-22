@@ -9,6 +9,8 @@ import com.loganalyzer.elasticsearch.util.JsonDateDeSerializer;
 import com.loganalyzer.elasticsearch.util.JsonDateSerializer;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonAutoDetect
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -16,7 +18,7 @@ public class Log {
 
     private String id;
     @JsonFormat(pattern="yyyy-MMM-dd EEE HH:mm:ss.SSS")
-    private Timestamp timestamp;
+    private Long logTimeStamp;
     private String level;
     private String className;
     private String methodName;
@@ -28,10 +30,10 @@ public class Log {
     public Log() {
     }
 
-    public Log(String id, Timestamp timestamp, String level, String className, String methodName,
+    public Log(String id, Long timestamp, String level, String className, String methodName,
                String classFile, String line, String logFile, String message) {
         this.id = id;
-        this.timestamp = timestamp;
+        this.logTimeStamp = timestamp;
         this.level = level;
         this.className = className;
         this.methodName = methodName;
@@ -58,13 +60,13 @@ public class Log {
     }
 
     @JsonSerialize(using=JsonDateSerializer.class)
-    public Timestamp getTimestamp() {
-        return timestamp;
+    public Long getLogTimeStamp() {
+        return logTimeStamp;
     }
 
     @JsonDeserialize(using=JsonDateDeSerializer.class)
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+    public void setLogTimeStamp(Long logTimeStamp) {
+        this.logTimeStamp = logTimeStamp;
     }
 
     public String getLevel() {
@@ -115,11 +117,25 @@ public class Log {
         this.logFile = logFile;
     }
 
+    public Map<String, Object> map(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("logTimeStamp", logTimeStamp);
+        map.put("level", level);
+        map.put("className", className);
+        map.put("methodName", methodName);
+        map.put("classFile", classFile);
+        map.put("line", line);
+        map.put("logFile", logFile);
+        map.put("message", message);
+        return map;
+    }
+
     @Override
     public String toString() {
         return "Log{" +
                 "id='" + id + '\'' +
-                ", timestamp=" + timestamp +
+                ", logTimeStamp=" + logTimeStamp +
                 ", level='" + level + '\'' +
                 ", className='" + className + '\'' +
                 ", methodName='" + methodName + '\'' +

@@ -14,10 +14,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 @Component
-public class JsonDateDeSerializer extends JsonDeserializer<Timestamp> {
+public class JsonDateDeSerializer extends JsonDeserializer<Long> {
 
     @Override
-    public Timestamp deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+    public Long deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
 
         ObjectCodec oc = jsonParser.getCodec();
         JsonNode node = oc.readTree(jsonParser);
@@ -30,6 +30,7 @@ public class JsonDateDeSerializer extends JsonDeserializer<Timestamp> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return new Timestamp(parsedDate.getTime());
+        return parsedDate.getTime();
     }
+
 }

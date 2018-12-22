@@ -30,7 +30,7 @@
                 {
                     "filter":{
                         "range":{
-                            "@timestamp":{
+                            "@logTimeStamp":{
                                 "gte":"2001-Aug-01 Mon 00:00:22.482",
                                 "lte":"2018-Jun-20 Wed 17:21:22.302",
                                 "format":"yyyy-MMM-dd EEE HH:mm:ss.SSS",
@@ -70,3 +70,21 @@
         }
     }
 }
+
+{
+    "query":{
+        "bool":{
+            "must":
+                {
+	                "range":{
+	                    "logTimeStamp":{
+	                        "gte":"2018-Jan-01 Mon 00:00:00.000",
+	                        "lte":"2018-Dec-31 Wed 00:00:00.000",
+	                        "relation":"INTERSECTS"
+	                     }
+	                }
+                }
+                }
+            }
+}
+

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loganalyzer.elasticsearch.bean.Log;
 import com.loganalyzer.elasticsearch.bean.SearchCriteria;
+import com.loganalyzer.elasticsearch.util.JsonDateDeSerializer;
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -26,6 +27,7 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +56,7 @@ public class LogDao {
     public Log insertLog(Log log){
         log.setId(UUID.randomUUID().toString());
         System.out.println(log);
-        Map<String, Object> dataMap = objectMapper.convertValue(log, Map.class);
+        Map<String, Object> dataMap = log.map();
         IndexRequest indexRequest = new IndexRequest(INDEX, TYPE, log.getId())
                 .source(dataMap);
         try {
@@ -78,10 +80,11 @@ public class LogDao {
                 ",";
     }
 
-    public List<Map<String, Object>> getAllTypes(SearchCriteria criteria){
+    public List<Map<String, Object>> getAllTypes(SearchCriteria criteria) throws IOException {
 
         List<Map<String, Object>> list = new ArrayList<>();
         SearchRequest searchRequest = new SearchRequest(INDEX);
+        JsonDateDeSerializer deSerializer = new JsonDateDeSerializer();
 
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
@@ -102,12 +105,10 @@ public class LogDao {
                     "{" +
                     "\"range\":" +
                     "{" +
-                    "\"timestamp\":" +
+                    "\"logTimeStamp\":" +
                     "{" +
                     "\"gte\":\"" + criteria.getStarting() + "\"," +
-                    "\"lte\":\"" + criteria.getEnding() + "\"," +
-                    "\"format\":\"yyyy-MMM-dd EEE HH:mm:ss.SSS\"," +
-                    "\"relation\":\"WITHIN\"" +
+                    "\"lte\":\"" + criteria.getEnding() + "\"" +
                     "}" +
                     "}" +
                     "}" +
