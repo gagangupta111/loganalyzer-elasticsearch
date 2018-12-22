@@ -70,12 +70,10 @@ public class LogDao {
     }
 
     private String getMultiScriptAppend(String fieldHolder, String valueHolder){
-        return "{" +
-                "\"query_string\":" +
+        return "\"query_string\":" +
                 "{" +
                 "\"default_field\" : \"{{" + fieldHolder + "}}\"," +
                 "\"query\" : \"*{{" + valueHolder + "}}*\"" +
-                "}" +
                 "}" +
                 ",";
     }
@@ -90,7 +88,8 @@ public class LogDao {
         String multiScript = "{" +
                 "\"query\":" +
                 "{" +
-                "\"bool\":";
+                "\"bool\":" +
+                "{";
 
         Map<String, Object> scriptParams = new HashMap<>();
         String fieldHolder;
@@ -99,8 +98,7 @@ public class LogDao {
         if (criteria.getStarting() != null && criteria.getEnding() != null) {
 
             multiScript +=
-                    "{" +
-                    "\"must\":" +
+                    "\"filter\":" +
                     "{" +
                     "\"range\":" +
                     "{" +
@@ -111,10 +109,13 @@ public class LogDao {
                     "}" +
                     "}" +
                     "}" +
-                    "}" +
-                    "";
+                    ",";
 
         }
+
+        multiScript +=
+                "\"must\":" +
+                "{";
 
         if (criteria.getClassFile() != null) {
 
@@ -211,6 +212,8 @@ public class LogDao {
         multiScript = ',' == (multiScript.charAt(multiScript.length() - 1)) ? multiScript.substring(0, multiScript.length() - 1) : multiScript;
 
         multiScript +=
+                "}" +
+                "}" +
                 "}" +
                 "}";
 

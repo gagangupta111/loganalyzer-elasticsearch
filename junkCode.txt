@@ -88,3 +88,29 @@
             }
 }
 
+Working:
+
+{
+	"query":
+	{
+		"bool":
+			{
+				"filter":
+				{
+	                "range":
+						{
+							"logTimeStamp":
+							{"gte":"1532353904406","lte":"1532354203911"
+							}
+						}
+	            },
+				"must":
+				{
+					"query_string":
+					{
+						"default_field" : "message","query" : "*Security*"
+					}
+				}
+		}
+	}
+}
