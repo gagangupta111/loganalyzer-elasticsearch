@@ -88,6 +88,9 @@ public class LogDao {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
         String multiScript = "{" +
+                "\"sort\":[" +
+                "{ \"logTimeStamp\" : {\"order\" : \"asc\"}}" +
+                "]," +
                 "\"query\":" +
                 "{" +
                 "\"bool\":" +
