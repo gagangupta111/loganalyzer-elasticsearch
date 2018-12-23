@@ -114,3 +114,12 @@ Working:
 		}
 	}
 }
+
+{
+	"sort" : [
+        { "logTimeStamp" : {"order" : "asc"}}
+    ],
+    "from" : 101, "size" : 100,
+    "query":{"bool":{"must":[]}}}
+
+{"sort":[{ "logTimeStamp" : {"order" : "asc"}}],"from":0,"size":100,"query":{"bool":{"filter":{"range":{"logTimeStamp":{"gte":"1526651504406","lte":"1532355643911"}}},"must":[{"query_string":{"default_field" : "logFile","query" : "WebCR_Atmosphere","minimum_should_match" : "100%"}},{"query_string":{"default_field" : "message","query" : "Found","minimum_should_match" : "100%"}}]}}}

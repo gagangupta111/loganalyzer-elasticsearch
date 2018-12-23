@@ -74,7 +74,8 @@ public class LogDao {
                 "\"query_string\":" +
                 "{" +
                 "\"default_field\" : \"{{" + fieldHolder + "}}\"," +
-                "\"query\" : \"*{{" + valueHolder + "}}*\"" +
+                "\"query\" : \"{{" + valueHolder + "}}\"," +
+                "\"minimum_should_match\" : \"100%\"" +
                 "}" +
                 "}" +
                 ",";
@@ -90,7 +91,17 @@ public class LogDao {
         String multiScript = "{" +
                 "\"sort\":[" +
                 "{ \"logTimeStamp\" : {\"order\" : \"asc\"}}" +
-                "]," +
+                "],";
+
+        if (criteria.getStart() != null){
+            multiScript += "\"from\":" + criteria.getStart() + ",";
+        }
+
+        if (criteria.getSize() != null){
+            multiScript += "\"size\":" + criteria.getSize() + ",";
+        }
+
+        multiScript +=
                 "\"query\":" +
                 "{" +
                 "\"bool\":" +
@@ -206,14 +217,6 @@ public class LogDao {
 
         }
 
-        if (criteria.getStart() != null){
-            searchSourceBuilder.from(criteria.getStart());
-        }
-
-        if (criteria.getSize() != null){
-            searchSourceBuilder.size(criteria.getSize());
-        }
-
         multiScript = ',' == (multiScript.charAt(multiScript.length() - 1)) ? multiScript.substring(0, multiScript.length() - 1) : multiScript;
 
         multiScript +=
@@ -222,7 +225,6 @@ public class LogDao {
                 "}" +
                 "}";
 
-        searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
         searchRequest.source(searchSourceBuilder);
 
         SearchTemplateRequest searchTemplateRequest = new SearchTemplateRequest();
