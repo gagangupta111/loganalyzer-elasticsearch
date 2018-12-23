@@ -111,7 +111,7 @@ public class LogDao {
         String fieldHolder;
         String valueHolder;
 
-        if (criteria.getStarting() != null && criteria.getEnding() != null) {
+        if (criteria.getStarting() != null || criteria.getEnding() != null) {
 
             multiScript +=
                     "\"filter\":" +
@@ -119,9 +119,18 @@ public class LogDao {
                     "\"range\":" +
                     "{" +
                     "\"logTimeStamp\":" +
-                    "{" +
-                    "\"gte\":\"" + criteria.getStarting() + "\"," +
-                    "\"lte\":\"" + criteria.getEnding() + "\"" +
+                    "{";
+
+            if (criteria.getStarting() != null && criteria.getEnding() != null){
+                multiScript += "\"gte\":\"" + criteria.getStarting() + "\",";
+                multiScript += "\"lte\":\"" + criteria.getEnding() + "\"";
+            }else if (criteria.getStarting() != null){
+                multiScript += "\"gte\":\"" + criteria.getStarting() + "\"";
+            }else {
+                multiScript += "\"lte\":\"" + criteria.getEnding() + "\"";
+            }
+
+            multiScript +=
                     "}" +
                     "}" +
                     "}" +
