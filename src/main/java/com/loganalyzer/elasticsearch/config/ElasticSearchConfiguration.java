@@ -136,7 +136,8 @@ public class ElasticSearchConfiguration extends AbstractFactoryBean<RestHighLeve
 
     private RestHighLevelClient buildClient() {
 
-        String host = "localhost"; // "aabrd0310.aaspl-brd.com";
+        // Change this host as per the environment your OS supports. Elastic search on windows does not open itself on localhost, it rather uses the descriptive hostname.
+        String host = "aabrd0310.aaspl-brd.com"; // "aabrd0310.aaspl-brd.com"; OR //localhost
         try {
             restHighLevelClient = new RestHighLevelClient(
                     RestClient.builder(

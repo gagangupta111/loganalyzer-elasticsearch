@@ -14,7 +14,7 @@ public class Utility {
 
     public static String getFileName(String fullPath){
 
-        String pathSeparator = getPathSeparator();
+        String pathSeparator = "/";
         return fullPath.substring(fullPath.lastIndexOf(pathSeparator) + 1, fullPath.lastIndexOf("."));
 
     }
